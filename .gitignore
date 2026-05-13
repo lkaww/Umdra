@@ -1,24 +1,7 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
 *.o
 *.PBP
 *.elf
 *.SFO
-*.obj
 
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-.vscode/settings.json
+.vscode/
+assets/
