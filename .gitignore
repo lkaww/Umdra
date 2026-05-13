@@ -21,4 +21,4 @@
 *.a
 *.lib
 
-.vscode/
+.vscode/settings.json
