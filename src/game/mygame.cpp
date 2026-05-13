@@ -10,18 +10,19 @@ void MyGame::Init(Renderer& renderer)
 
 void MyGame::Update()
 {
-    
 }
 
 void MyGame::Render(Renderer& renderer)
 {
+    //Logo)
+
     renderer.DrawSprite(
         playerTexture,
         64,
         64,
         208,
         100
-        );
+    );
 }
 
 void MyGame::Shutdown()
