@@ -5,6 +5,9 @@
 *.slo
 *.lo
 *.o
+*.PBP
+*.elf
+*.SFO
 *.obj
 
 
@@ -32,9 +35,7 @@
 *.out
 *.app
 
-*.pbp
-*.elf
-*.sfo
-
-.vscode/c_cpp_properties.json
-.vscode/settings.json
+# VS Code
+.vscode/*
+!.vscode/c_cpp_properties.json
+!.vscode/settings.json
