@@ -7,11 +7,12 @@ src/main.o \
 src/core/engine.o \
 src/graphics/renderer.o \
 src/input/input.o \
-src/game/mygame.o
+src/game/mygame.o \
+src/audio/audio.o
 
 CFLAGS = -O2 -G0 -Wall -Iinclude
 CXXFLAGS = $(CFLAGS)
 
-LIBS = -lpspgu -lpspgum -lpspdisplay -lpspctrl -lpng -lz -lstdc++ -lm
+LIBS = -lpspgu -lpspgum -lpspdisplay -lpspctrl -lpspaudio -lpng -lz -lstdc++ -lm
 
 include $(PSPSDK)/lib/build.mak

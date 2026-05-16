@@ -10,3 +10,4 @@ public:
     void Render(Renderer& renderer) override;
     void Shutdown() override;
 };
+

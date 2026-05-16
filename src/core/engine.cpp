@@ -1,5 +1,6 @@
 #include "core/engine.h"
 #include "input/input.h"
+#include "audio/audio.h"
 
 void Engine::Init(Game* g)
 {
@@ -10,6 +11,7 @@ void Engine::Init(Game* g)
     renderer.Init();
 
     game->Init(renderer);
+    Audio::Init();
 }
 
 void Engine::Run()
@@ -33,4 +35,5 @@ void Engine::Shutdown()
 {
     game->Shutdown();
     renderer.Shutdown();
+    Audio::Shutdown();
 }

@@ -1,6 +1,7 @@
 #include "game/mygame.h"
 #include "graphics/renderer.h"
 #include "input/input.h"
+#include "audio/audio.h"
 
 void MyGame::Init(Renderer& renderer)
 {
