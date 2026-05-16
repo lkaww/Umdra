@@ -1,5 +1,7 @@
 #pragma once
 
+#include "graphics/texture.h"
+
 class Renderer
 {
 public:
@@ -9,9 +11,7 @@ public:
     unsigned int* LoadTexture(const char* path);
 
     void DrawSprite(
-        unsigned int* texture,
-        int width,
-        int height,
+        const Texture& texture,
         float x,
         float y
     );

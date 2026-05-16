@@ -6,6 +6,7 @@ OBJS = \
 src/main.o \
 src/core/engine.o \
 src/graphics/renderer.o \
+src/graphics/texture.o \
 src/input/input.o \
 src/game/mygame.o \
 src/audio/audio.o

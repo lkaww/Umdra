@@ -1,4 +1,5 @@
 #include "graphics/renderer.h"
+#include "graphics/texture.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -110,41 +111,43 @@ void Renderer::BeginFrame()
 }
 
 void Renderer::DrawSprite(
-    unsigned int* texture,
-    int width,
-    int height,
+    const Texture& texture,
     float x,
     float y)
 {
-    if (!texture)
-        return;
-
     sceGuEnable(GU_TEXTURE_2D);
 
     sceGuTexMode(GU_PSM_8888, 0, 0, 0);
+
     sceGuTexImage(
         0,
-        width,
-        height,
-        width,
-        texture);
+        texture.GetWidth(),
+        texture.GetHeight(),
+        texture.GetWidth(),
+        texture.GetPixels()
+    );
 
     Vertex* v =
         (Vertex*)sceGuGetMemory(
             2 * sizeof(Vertex));
 
-    v[0] = {
-        0.0f, 0.0f,
+    v[0] =
+    {
+        0.0f,
+        0.0f,
         0xFFFFFFFF,
-        x, y, 0.0f
+        x,
+        y,
+        0.0f
     };
 
-    v[1] = {
-        (float)width,
-        (float)height,
+    v[1] =
+    {
+        (float)texture.GetWidth(),
+        (float)texture.GetHeight(),
         0xFFFFFFFF,
-        x + width,
-        y + height,
+        x + texture.GetWidth(),
+        y + texture.GetHeight(),
         0.0f
     };
 
@@ -156,17 +159,14 @@ void Renderer::DrawSprite(
         GU_TRANSFORM_2D,
         2,
         0,
-        v);
+        v
+    );
 }
 
 void Renderer::EndFrame()
 {
     sceGuFinish();
     sceGuSync(0, 0);
-
-    // текст рисуем ПОСЛЕ GU
-    /*DrawText("Umdra Engine", 1, 1);
-    DrawText("Like pls!", 1, 3);*/
 
     sceDisplayWaitVblankStart();
     sceGuSwapBuffers();
