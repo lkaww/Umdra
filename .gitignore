@@ -8,3 +8,4 @@ assets/
 src/math/
 src/graphics/sprite.cpp
 src/filesystem/
+src/core/app.cpp

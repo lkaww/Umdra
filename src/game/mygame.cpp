@@ -2,6 +2,7 @@
 #include "graphics/renderer.h"
 #include "input/input.h"
 #include "audio/audio.h"
+#include "core/time.h"
 
 void MyGame::Init(Renderer& renderer)
 {

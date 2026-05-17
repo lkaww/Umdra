@@ -11,8 +11,5 @@ public:
     void Update() override;
     void Render(Renderer& renderer) override;
     void Shutdown() override;
-
-private:
-    Texture playerTexture;
 };
 

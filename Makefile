@@ -9,7 +9,8 @@ src/graphics/renderer.o \
 src/graphics/texture.o \
 src/input/input.o \
 src/game/mygame.o \
-src/audio/audio.o
+src/audio/audio.o \
+src/core/time.o
 
 CFLAGS = -O2 -G0 -Wall -Iinclude
 CXXFLAGS = $(CFLAGS)

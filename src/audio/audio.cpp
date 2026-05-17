@@ -5,11 +5,48 @@
 #include <cstring>
 
 #include <pspaudio.h>
+#include <pspkernel.h>
 
 int Audio::channel = -1;
 
 short* Audio::wavBuffer = nullptr;
 int Audio::wavSamples = 0;
+
+bool Audio::playRequested = false;
+int Audio::threadId = -1;
+
+int Audio::AudioThread(unsigned int, void*)
+{
+    while (true)
+    {
+        if (playRequested && wavBuffer)
+        {
+            playRequested = false;
+
+            int offset = 0;
+
+            while (offset < wavSamples)
+            {
+                int chunk = 1024;
+
+                if (offset + chunk > wavSamples)
+                    chunk = wavSamples - offset;
+
+                sceAudioOutputBlocking(
+                    channel,
+                    PSP_AUDIO_VOLUME_MAX,
+                    wavBuffer + offset
+                );
+
+                offset += chunk;
+            }
+        }
+
+        sceKernelDelayThread(1000);
+    }
+
+    return 0;
+}
 
 struct WavHeader
 {
@@ -32,11 +69,24 @@ struct WavHeader
 
 void Audio::Init()
 {
-    channel = sceAudioChReserve(
-        PSP_AUDIO_NEXT_CHANNEL,
-        1024,
-        PSP_AUDIO_FORMAT_MONO
-    );
+    channel =
+        sceAudioChReserve(
+            PSP_AUDIO_NEXT_CHANNEL,
+            1024,
+            PSP_AUDIO_FORMAT_MONO
+        );
+
+    threadId =
+        sceKernelCreateThread(
+            "audio_thread",
+            AudioThread,
+            0x18,
+            0x10000,
+            0,
+            nullptr
+        );
+
+    sceKernelStartThread(threadId, 0, nullptr);
 }
 
 bool Audio::LoadWav(const char* path)
@@ -102,39 +152,17 @@ bool Audio::LoadWav(const char* path)
 
 void Audio::Play()
 {
-    if (!wavBuffer)
-        return;
-
-    int offset = 0;
-
-    while (offset < wavSamples)
-    {
-        int chunk = 1024;
-
-        if (offset + chunk > wavSamples)
-            chunk = wavSamples - offset;
-
-        sceAudioOutputBlocking(
-            channel,
-            PSP_AUDIO_VOLUME_MAX,
-            wavBuffer + offset
-        );
-
-        offset += chunk;
-    }
+    playRequested = true;
 }
 
 void Audio::Shutdown()
 {
+    if (threadId >= 0)
+        sceKernelTerminateDeleteThread(threadId);
+
     if (wavBuffer)
-    {
         free(wavBuffer);
-        wavBuffer = nullptr;
-    }
 
     if (channel >= 0)
-    {
         sceAudioChRelease(channel);
-        channel = -1;
-    }
 }

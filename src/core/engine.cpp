@@ -1,16 +1,20 @@
 #include "core/engine.h"
 #include "input/input.h"
 #include "audio/audio.h"
+#include "core/time.h"
 
 void Engine::Init(Game* g)
 {
     running = true;
     game = g;
 
-    Input::Init();
-    renderer.Init();
+    Time::Init();
 
+    Input::Init();
+
+    renderer.Init();
     game->Init(renderer);
+
     Audio::Init();
 }
 
@@ -18,6 +22,7 @@ void Engine::Run()
 {
     while (running)
     {
+        Time::Update();
         Input::Update();
 
         if (Input::IsPressed(PSP_CTRL_START))
