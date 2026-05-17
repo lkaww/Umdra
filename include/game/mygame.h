@@ -2,6 +2,7 @@
 
 #include "core/game.h"
 #include "graphics/texture.h"
+#include "core/entity.h"
 
 
 class MyGame : public Game
