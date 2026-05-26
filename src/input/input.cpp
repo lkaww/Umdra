@@ -3,6 +3,8 @@
 SceCtrlData Input::currentPad = {};
 SceCtrlData Input::previousPad = {};
 
+float Input::deadZone = 15.0f;
+
 void Input::Init()
 {
     sceCtrlSetSamplingCycle(0);
@@ -39,10 +41,20 @@ bool Input::IsReleased(unsigned int button)
 
 int Input::GetAnalogX()
 {
-    return currentPad.Lx - 128;
+    int value = currentPad.Lx - 128;
+
+    if (value < deadZone && value > -deadZone)
+        return 0;
+
+    return value;
 }
 
 int Input::GetAnalogY()
 {
-    return currentPad.Ly - 128;
+    int value = currentPad.Ly - 128;
+
+    if (value < deadZone && value > -deadZone)
+        return 0;
+
+    return value;
 }

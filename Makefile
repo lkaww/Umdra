@@ -11,7 +11,8 @@ src/input/input.o \
 src/game/mygame.o \
 src/audio/audio.o \
 src/core/time.o \
-src/core/entity.o
+src/core/entity.o \
+src/physics/collision.o 
 
 CFLAGS = -O2 -G0 -Wall -Iinclude
 CXXFLAGS = $(CFLAGS)

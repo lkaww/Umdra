@@ -105,9 +105,10 @@ void Renderer::BeginFrame()
     sceGuStart(GU_DIRECT, list);
 
     sceGuClearColor(0x000000);
-    sceGuClear(GU_COLOR_BUFFER_BIT);
-
-    pspDebugScreenClear();
+    sceGuClear(
+        GU_COLOR_BUFFER_BIT |
+        GU_DEPTH_BUFFER_BIT
+    );
 }
 
 void Renderer::DrawSprite(

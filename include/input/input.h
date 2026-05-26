@@ -18,4 +18,6 @@ public:
 private:
     static SceCtrlData currentPad;
     static SceCtrlData previousPad;
+
+    static float deadZone;
 };
